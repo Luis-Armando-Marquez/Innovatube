@@ -1,3 +1,14 @@
+<!-- CONEXION_BASE_DATOS -->
+ <?php
+    $host = "localhost";
+    $user = "root";
+    $password = "";
+    $dbname = "innovatube";
+
+    $conn = new mysqli($host, $user, $password, $dbname);
+?>
+<!-- END_DB -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,11 +62,41 @@
                         <th><label class="Registro_label" for="Recuperar_contraseña">Recuperar contraseña </label></th>
                     </tr>
                     <tr>
-                        <th colspan="1"><input type="submit" name="Registrar"></th>
+                        <th colspan="1"><input type="submit" name="Iniciar"></th>
                     </tr>
                 </tbody>
              </table>
         </form>
     </section>
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            $Username = $_POST["Nombre_usuario"];
+            $Pass = $_POST["Contraseña_usuario"];
+
+            //COLSULTA_DB
+            $stmt = $conn->prepare("SELECT ID_innova, Usuario_innova, Email_innova, Password_innova FROM usuarios_innovatube WHERE Usuario_innova = ? OR Email_innova = ?");
+            $stmt->bind_param("ss", $Username, $Username);
+            $stmt->execute();
+            $consulta = $stmt->get_result();
+
+            if ($consulta->num_rows === 1) {
+            $fila = $consulta->fetch_assoc();
+            $Password_innova = $fila['Password_innova'];
+            
+            //COMPARAR CONTRASEÑA INGRESADA CON EL HASH
+            if (password_verify($Pass, $Password_innova)) {
+                echo "<p>Bienvenido " . htmlspecialchars($fila['Usuario_innova']) . "</p>";
+            } else {
+                echo "<p>Contraseña incorrecta</p>";
+            }
+            } else {
+                echo "<p>Usuario o correo incorrecto</p>";
+            }
+            
+            $stmt->close();
+            $conn->close();
+
+            }
+    ?>
 </body>
 </html>
