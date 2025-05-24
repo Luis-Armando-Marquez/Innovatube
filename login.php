@@ -4,14 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InnovaTube</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="style_inicio.css">
 </head>
 <body>
+    <!-- HEADER -->
+    <header class="Header">
+        <div class="Header_div">
+            <a href="#"><img src="Castor.png" class="Header_logo"></a>
+            <!-- ENLACES -->
+            <nav class="Header_nav">
+                <ul class="Header_nav_ul">
+                  <li class="Header_nav_ul"><a href="registro.php">Registro</a></li>
+                  <li class="Header_nav_ul"><a href="login.php">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- END HEADER -->
+
     <!-- FORMULARIO -->
     <section class="Inicio">
         <form class="Inicio_formulario" method="POST">
             <table class="Inicio_tabla">
                 <thead>
+                    <tr>
+                        <th colspan="1"><img src="Castor.png" alt=""></th>
+                    </tr>
                     <tr>
                         <th colspan="1">Inicio Sesión</th>
                     </tr>
