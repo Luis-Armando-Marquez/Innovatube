@@ -26,7 +26,7 @@
             <nav class="Header_nav">
                 <ul class="Header_nav_ul">
                   <li class="Header_nav_ul"><a href="registro.php">Registro</a></li>
-                  <li class="Header_nav_ul"><a href="login.php">Login</a></li>
+                  <li class="Header_nav_ul"><a href="index.php">Login</a></li>
                 </ul>
             </nav>
         </div>
