@@ -1,0 +1,154 @@
+/*GENERAL*/
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/*SECCIÓN_FORMULARIO*/
+.Inicio {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(0, 0, 0, 0.705);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/*FORMULARIO*/
+.Inicio_formulario {
+  width: 100%;
+}
+
+/*TABLA*/
+.Inicio_tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/*IMAGEN*/
+.Inicio_tabla img {
+  width: 350px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 12px;
+}
+
+/*TITULOS*/
+.Inicio_tabla th[colspan="1"] {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  padding: 15px 0;
+  color: white;
+}
+
+/*LABELS*/
+.Inicio_label,
+.Registro_label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  text-align: center;
+}
+
+/*INPUTS*/
+.Registro_input {
+  width: 90%;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: white;
+  font-style: italic;
+  text-align: center;
+  transition: 0.3s ease;
+  outline: none;
+}
+
+.Registro_input::placeholder {
+  color: #000000;
+}
+
+/*EFECTO*/
+.Registro_input:focus {
+  box-shadow: 0 0 0 2px #555;
+}
+
+/*BOTON*/
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #241044;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #440944;
+}
+
+
+/*HEADER*/
+.Header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.726);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.719);
+  z-index: 1000;
+  padding: 10px 30px;
+}
+
+.Header_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Header_logo {
+  height: 40px;
+}
+
+.Header_nav_ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.Header_nav_ul li {
+  transition: transform 0.3s ease;
+}
+
+.Header_nav_ul li:hover {
+  transform: scale(1.05);
+}
+
+.Header_nav_ul a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.Header_nav_ul a:hover {
+  color: #ccc;
+}
