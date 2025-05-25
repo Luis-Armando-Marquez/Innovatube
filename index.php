@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
 
     $host = "mysql.railway.internal";
@@ -100,6 +101,9 @@
                     $conn->close();
 
                     }
+                ?>
+                <?php
+                ob_end_flush();
                 ?>
              </table>
         </form>
