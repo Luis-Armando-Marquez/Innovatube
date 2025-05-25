@@ -2,11 +2,6 @@
  <?php
     session_start();
 
-    /*$host = "localhost";
-    $user = "root";
-    $password = "";
-    $dbname = "innovatube";*/
-
     $host = "mysql.railway.internal";
     $user = "root";
     $password = "KbONkCiRyJLhJYIdvzUVekyMXKYOMvhA";
