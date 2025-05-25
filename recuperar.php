@@ -1,5 +1,6 @@
-<!-- CONEXION_BASE_DATOS -->
- <?php
+<?php
+    session_start();
+    
     $host = "mysql.railway.internal";
     $user = "root";
     $password = "KbONkCiRyJLhJYIdvzUVekyMXKYOMvhA";
@@ -61,7 +62,6 @@
                     </tr>
 
                     <?php
-                    session_start();
                     if (isset($_POST['Verificar'])) {
                         $Nombre_innova = $_POST['Nombre_usuario'];
                         $Usuario_innova = $_POST['Username'];
