@@ -1,5 +1,4 @@
-<!-- CONEXION_BASE_DATOS -->
- <?php
+<?php
     session_start();
 
     $host = "mysql.railway.internal";
