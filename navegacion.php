@@ -1,5 +1,4 @@
-<!-- CONEXION_BASE_DATOS -->
- <?php
+<?php
     session_start();
     if (!isset($_SESSION['Usuario_innova'])){
         header("Location: index.php");
