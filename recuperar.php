@@ -8,6 +8,25 @@
     $port = 3306;
 
     $conn = new mysqli($host, $user, $password, $dbname, $port);
+
+    if (isset($_POST['Verificar'])) {
+        $Nombre_innova = $_POST['Nombre_usuario'];
+        $Usuario_innova = $_POST['Username'];
+        $Email_innova = $_POST['Email_usuario'];
+
+        $stmt = $conn->prepare("SELECT * FROM usuarios_innovatube WHERE Nombre_innova=? AND Usuario_innova=? AND Email_innova=?");
+        $stmt->bind_param("sss", $Nombre_innova, $Usuario_innova, $Email_innova);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        if ($resultado->num_rows === 1) {
+            $_SESSION['Usuario_recuperar'] = $Usuario_innova;
+            header("Location: modificar_pass.php");
+            exit();
+        } else {
+            //echo "<p style='color:red;'>Datos incorrectos</p>";
+        }
+    }
 ?>
 <!-- END_DB -->
 
@@ -60,27 +79,6 @@
                     <tr>
                         <th colspan="2"><input type="submit" name="Verificar" value="Verificar identidad"></th>
                     </tr>
-
-                    <?php
-                    if (isset($_POST['Verificar'])) {
-                        $Nombre_innova = $_POST['Nombre_usuario'];
-                        $Usuario_innova = $_POST['Username'];
-                        $Email_innova = $_POST['Email_usuario'];
-
-                        $stmt = $conn->prepare("SELECT * FROM usuarios_innovatube WHERE Nombre_innova=? AND Usuario_innova=? AND Email_innova=?");
-                        $stmt->bind_param("sss", $Nombre_innova, $Usuario_innova, $Email_innova);
-                        $stmt->execute();
-                        $resultado = $stmt->get_result();
-
-                        if ($resultado->num_rows === 1) {
-                            $_SESSION['Usuario_recuperar'] = $Usuario_innova;
-                            header("Location: modificar_pass.php");
-                            exit();
-                        } else {
-                            echo "<p style='color:red;'>Datos incorrectos</p>";
-                        }
-                        }
-                    ?>
                 </tbody>
              </table>
         </form>

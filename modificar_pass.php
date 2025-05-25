@@ -21,7 +21,6 @@
         $Confirmar = $_POST['Confirmar_pass'];
 
         if ($Nueva !== $Confirmar) {
-            echo "<p style='color:red;'>No coinciden las contraseñas</p>";
         } else {
             $nuevaHash = password_hash($Nueva, PASSWORD_DEFAULT);
 
