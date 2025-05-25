@@ -1,11 +1,6 @@
 <?php
     ob_start();
     session_start();
-    if (!isset($_SESSION['Usuario_recuperar'])) {
-
-        header("Location: recuperar.php");
-        exit();
-    }
 
     $Usuario = $_SESSION['Usuario_recuperar'];
 
