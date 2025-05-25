@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
     if (!isset($_SESSION['Usuario_recuperar'])) {
         header("Location: recuperar.php");
@@ -75,13 +76,17 @@
                             $stmt = $conn->prepare("UPDATE usuarios_innovatube SET Password_innova=? WHERE Usuario_innova=?");
                             $stmt->bind_param("ss", $nuevaHash, $Usuario);
                             if ($stmt->execute()) {
-                                echo "<p style='color:green;'>Contraseña actualizada</p>";
                                 session_destroy();
+                                header("Location: index.php?cambio=ok");
+                                exit();
                             } else {
                                 echo "<p style='color:red;'>Error, No se puede cambiar</p>";
                             }
                         }
                     }
+                    ?>
+                    <?php
+                        ob_end_flush();
                     ?>
                 </tbody>
              </table>
