@@ -1,11 +1,12 @@
 <!-- CONEXION_BASE_DATOS -->
  <?php
-    $host = "localhost";
+    $host = "mysql.railway.internal";
     $user = "root";
-    $password = "";
-    $dbname = "innovatube";
+    $password = "KbONkCiRyJLhJYIdvzUVekyMXKYOMvhA";
+    $dbname = "railway";
+    $port = 3306;
 
-    $conn = new mysqli($host, $user, $password, $dbname);
+    $conn = new mysqli($host, $user, $password, $dbname, $port);
 ?>
 <!-- END_DB -->
 
@@ -27,7 +28,7 @@
             <nav class="Header_nav">
                 <ul class="Header_nav_ul">
                   <li class="Header_nav_ul"><a href="registro.php">Registro</a></li>
-                  <li class="Header_nav_ul"><a href="login.php">Salir</a></li>
+                  <li class="Header_nav_ul"><a href="index.php">Salir</a></li>
                 </ul>
             </nav>
         </div>

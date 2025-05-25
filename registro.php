@@ -1,11 +1,19 @@
 <!-- CONEXION_BASE_DATOS -->
  <?php
+    /*
     $host = "localhost";
     $user = "root";
     $password = "";
     $dbname = "innovatube";
+    */
 
-    $conn = new mysqli($host, $user, $password, $dbname);
+    $host = "mysql.railway.internal";
+    $user = "root";
+    $password = "KbONkCiRyJLhJYIdvzUVekyMXKYOMvhA";
+    $dbname = "railway";
+    $port = 3306;
+
+    $conn = new mysqli($host, $user, $password, $dbname, $port);
 ?>
 <!-- END_DB -->
 
@@ -27,7 +35,7 @@
             <nav class="Header_nav">
                 <ul class="Header_nav_ul">
                   <li class="Header_nav_ul"><a href="registro.php">Registro</a></li>
-                  <li class="Header_nav_ul"><a href="login.php">Login</a></li>
+                  <li class="Header_nav_ul"><a href="index.php">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -67,52 +75,54 @@
                         <th colspan="2"><div class="g-recaptcha" data-sitekey="6Ld8F0crAAAAAF7FKpf7Spyr1FhX3AQeoYGx5b5b"></div></th>
                     </tr>
                     <tr>
-                        <th colspan="2"><input type="submit" name="Registrar"></th>
+                        <th colspan="2"><input type="submit" name="Registrar" value="Registrar usuario"></th>
                     </tr>
                 </tbody>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST"){
+                    $secret = "6Ld8F0crAAAAAIzTmYON81EdQufZH7QWqsWRe5PS";
+                    $response = $_POST["g-recaptcha-response"];
+                    $remoteip = $_SERVER["REMOTE_ADDR"];
+
+                    $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$remoteip");
+                    $captcha_success = json_decode($verify);
+
+                    if ($captcha_success->success) {
+                    echo "<p style='color: green;'>Verificación correcta</p>";
+                    
+                    if(isset($_POST['Registrar'])){
+                    $Nombre_innova = $_POST['Nombre_usuario'];
+                    $Usuario_innova = $_POST['Username'];
+                    $Email_innova = $_POST['Email_usuario'];
+                    $Password_innova = $_POST['Contraseña_usuario'];
+                    $Confirmar_innova = $_POST['Confirmar_contraseña'];
+                    
+                    if ($Password_innova !== $Confirmar_innova){
+                        echo "<p style='color: red;'>Error, las contraseñas no coinciden</p>";
+                    } else {
+                        $Password_innova = password_hash($_POST['Contraseña_usuario'], PASSWORD_DEFAULT);
+                        //$Password_innova = password_hash($Password_innova, PASSWORD_DEFAULT);
+
+                        $Insertar = "INSERT INTO usuarios_innovatube (Nombre_innova, Usuario_innova, Email_innova, Password_innova) VALUES ('$Nombre_innova', '$Usuario_innova', 
+                        '$Email_innova', '$Password_innova')";
+
+                        if ($conn->query($Insertar) === TRUE) {
+                        echo "<p style='color: green;'>Registro exitoso</p>";
+                        } else {
+                            echo "Error al registrar: " . $conn->error;
+                        }
+                    }
+                }
+
+                    }
+                    else {
+                        echo "<p style='color: red;'>Error, verificación fallida</p>";
+                    }
+                }
+            ?>
+
              </table>
         </form>
     </section>
-    <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
-            $secret = "6Ld8F0crAAAAAIzTmYON81EdQufZH7QWqsWRe5PS";
-            $response = $_POST["g-recaptcha-response"];
-            $remoteip = $_SERVER["REMOTE_ADDR"];
-
-            $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$remoteip");
-            $captcha_success = json_decode($verify);
-
-            if ($captcha_success->success) {
-            echo "<p style='color: green;'>Verificación correcta</p>";
-            
-            if(isset($_POST['Registrar'])){
-            $Nombre_innova = $_POST['Nombre_usuario'];
-            $Usuario_innova = $_POST['Username'];
-            $Email_innova = $_POST['Email_usuario'];
-            $Password_innova = $_POST['Contraseña_usuario'];
-            $Confirmar_innova = $_POST['Confirmar_contraseña'];
-            
-            if ($Password_innova !== $Confirmar_innova){
-                echo "<p style='color: red;'>Error, las contraseñas no coinciden</p>";
-            } else {
-                $Password_innova = password_hash($Password_innova, PASSWORD_DEFAULT);
-
-                $Insertar = "INSERT INTO usuarios_innovatube (Nombre_innova, Usuario_innova, Email_innova, Password_innova) VALUES ('$Nombre_innova', '$Usuario_innova', 
-                '$Email_innova', '$Password_innova')";
-
-                if ($conn->query($Insertar) === TRUE) {
-                echo "<p style='color: green;'>Registro exitoso</p>";
-                } else {
-                    echo "Error al registrar: " . $conn->error;
-                }
-            }
-        }
-
-            }
-            else {
-                echo "<p style='color: red;'>Error, verificación fallida</p>";
-            }
-        }
-    ?>
 </body>
 </html>

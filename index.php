@@ -1,11 +1,19 @@
 <!-- CONEXION_BASE_DATOS -->
  <?php
-    $host = "localhost";
+    session_start();
+
+    /*$host = "localhost";
     $user = "root";
     $password = "";
-    $dbname = "innovatube";
+    $dbname = "innovatube";*/
 
-    $conn = new mysqli($host, $user, $password, $dbname);
+    $host = "mysql.railway.internal";
+    $user = "root";
+    $password = "KbONkCiRyJLhJYIdvzUVekyMXKYOMvhA";
+    $dbname = "railway";
+    $port = 3306;
+
+    $conn = new mysqli($host, $user, $password, $dbname, $port);
 ?>
 <!-- END_DB -->
 
@@ -62,7 +70,7 @@
                         <th><a href="recuperar.php" style="color: white; text-decoration: underline;">Recuperar contraseña</a></th>
                     </tr>
                     <tr>
-                        <th colspan="1"><input type="submit" name="Iniciar" value="Iniciar sesión"></th>
+                        <th colspan="1"><input type="submit" name="Iniciar" value="Iniciar sesión" href="navegacion.php"></th>
                     </tr>
                 </tbody>
                 <?php
@@ -82,7 +90,11 @@
                     
                     //COMPARAR CONTRASEÑA INGRESADA CON EL HASH
                     if (password_verify($Pass, $Password_innova)) {
-                        echo "<p style='color: green;'>Bienvenido " . htmlspecialchars($fila['Usuario_innova']) . "</p>";
+                        $_SESSION['Usuario_innova'] = $fila['Usuario_innova'];
+
+                        header("Location: navegacion.php");
+                        exit;
+                        //echo "<p style='color: green;'>Bienvenido " . htmlspecialchars($fila['Usuario_innova']) . "</p>";
                     } else {
                         echo "<p style='color: red;'>Contraseña incorrecta</p>";
                     }
@@ -94,7 +106,7 @@
                     $conn->close();
 
                     }
-            ?>
+                ?>
              </table>
         </form>
     </section>

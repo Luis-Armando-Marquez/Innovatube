@@ -7,12 +7,13 @@
     }
 
     //CONEXION A DB
-    $host = "localhost";
+    $host = "mysql.railway.internal";
     $user = "root";
-    $password = "";
-    $dbname = "innovatube";
+    $password = "KbONkCiRyJLhJYIdvzUVekyMXKYOMvhA";
+    $dbname = "railway";
+    $port = 3306;
 
-    $conn = new mysqli($host, $user, $password, $dbname);
+    $conn = new mysqli($host, $user, $password, $dbname, $port);
 ?>
 <!-- END_DB -->
 
