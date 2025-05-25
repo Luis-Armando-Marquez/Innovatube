@@ -38,8 +38,6 @@
         }
     }
 ?>
-<!-- END_DB -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
