@@ -1,5 +1,4 @@
 <?php
-    ob_start();
     session_start();
 
     if (!isset($_SESSION['Usuario_recuperar'])) {
@@ -89,6 +88,3 @@
     </section>
 </body>
 </html>
-<?php
-    ob_end_flush();
-?>
