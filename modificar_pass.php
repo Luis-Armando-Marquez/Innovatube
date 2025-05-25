@@ -2,6 +2,11 @@
     ob_start();
     session_start();
 
+    if (!isset($_SESSION['Usuario_recuperar'])) {
+        header("Location: recuperar.php");
+        exit();
+    }
+
     $Usuario = $_SESSION['Usuario_recuperar'];
 
     $host = "mysql.railway.internal";
@@ -11,6 +16,27 @@
     $port = 3306;
 
     $conn = new mysqli($host, $user, $password, $dbname, $port);
+
+    if (isset($_POST['Cambiar'])) {
+        $Nueva = $_POST['Nueva_pass'];
+        $Confirmar = $_POST['Confirmar_pass'];
+
+        if ($Nueva !== $Confirmar) {
+            echo "<p style='color:red;'>No coinciden las contraseñas</p>";
+        } else {
+            $nuevaHash = password_hash($Nueva, PASSWORD_DEFAULT);
+
+            $stmt = $conn->prepare("UPDATE usuarios_innovatube SET Password_innova=? WHERE Usuario_innova=?");
+            $stmt->bind_param("ss", $nuevaHash, $Usuario);
+            if ($stmt->execute()) {
+                session_destroy();
+                header("Location: index.php?cambio=ok");
+                exit();
+            } else {
+                echo "<p style='color:red;'>Error, No se puede cambiar</p>";
+            }
+        }
+    }
 ?>
 <!-- END_DB -->
 
@@ -59,33 +85,12 @@
                     <tr>
                         <th colspan="2"><input type="submit" name="Cambiar" value="Cambiar contraseña"></th>
                     </tr>
-                    <?php
-                    if (isset($_POST['Cambiar'])) {
-                        $Nueva = $_POST['Nueva_pass'];
-                        $Confirmar = $_POST['Confirmar_pass'];
-
-                        if ($Nueva !== $Confirmar) {
-                            echo "<p style='color:red;'>No coinciden las contraseñas</p>";
-                        } else {
-                            $nuevaHash = password_hash($Nueva, PASSWORD_DEFAULT);
-
-                            $stmt = $conn->prepare("UPDATE usuarios_innovatube SET Password_innova=? WHERE Usuario_innova=?");
-                            $stmt->bind_param("ss", $nuevaHash, $Usuario);
-                            if ($stmt->execute()) {
-                                echo "<p style='color:green;'>Contraseña actualizada<a href='index.php'></a></p>";
-                                session_destroy();
-                            } else {
-                                echo "<p style='color:red;'>Error, No se puede cambiar</p>";
-                            }
-                        }
-                    }
-                    ?>
-                    <?php
-                        ob_end_flush();
-                    ?>
                 </tbody>
              </table>
         </form>
     </section>
 </body>
 </html>
+<?php
+    ob_end_flush();
+?>
